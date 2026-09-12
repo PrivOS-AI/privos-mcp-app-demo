@@ -4,6 +4,15 @@ This project follows [Semantic Versioning](https://semver.org/). Each marketplac
 must equal `privos-app.json.version` and `package.json.version`; change both release notes and metadata
 in one commit.
 
+## [2.17.6] - 2026-09-13
+
+### Changed
+
+- **Republish with no manifest, scope, or behavior change** so the platform publish pipeline
+  records a signed local OCI artifact for this listing's `SELF_HOSTED_LOCAL` execution mode.
+  Identical permission declaration to 2.17.5; the only new output is the signed local
+  distribution artifact an App Cluster downloads and runs.
+
 ## [2.17.3] - 2026-09-01
 
 ### Changed
