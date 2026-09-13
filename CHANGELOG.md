@@ -4,6 +4,17 @@ This project follows [Semantic Versioning](https://semver.org/). Each marketplac
 must equal `privos-app.json.version` and `package.json.version`; change both release notes and metadata
 in one commit.
 
+## [2.17.8] - 2026-09-13
+
+### Fixed
+
+- **Readiness conformance for local and publisher-hosted execution.** The Hub requires the served
+  `tools/list` to equal the reviewed manifest's tools byte for byte and `serverInfo.name` to equal
+  the manifest name. The server now serves the manifest's tool definitions verbatim (the two
+  app-platform demo tools are declared in the manifest instead of being served undeclared) and
+  reports `serverInfo.name = ai.privos.mcp-app-demo` with the display title in `serverInfo.title`.
+  No permission or scope change.
+
 ## [2.17.7] - 2026-09-13
 
 ### Changed

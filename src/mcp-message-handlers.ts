@@ -6,6 +6,7 @@
  * origin, so the same 250 KB bundle no longer travels the relay on every tab
  * open. In development: reads source and builds on-the-fly via Vite.
  */
+import { createManifest } from './manifest';
 import path from 'path';
 import { fileURLToPath } from 'node:url';
 
@@ -128,7 +129,10 @@ export async function handleMcpMessage(
 					},
 				},
 				serverInfo: {
-				name: pkg.title || pkg.name,
+				// `name` must equal the manifest name (the Hub compares it at readiness); the
+				// human-readable title rides in MCP's optional `title`.
+				name: pkg.name,
+				title: pkg.title,
 				version: pkg.version,
 				...(appIcon && { icon: appIcon }),
 				// Advertise the exact schema-v2 declaration; Hub owns catalog metadata
@@ -141,55 +145,9 @@ export async function handleMcpMessage(
 			return {};
 
 		case 'tools/list':
-			return {
-				tools: [
-					{
-						name: TOOL_NAME,
-							title: pkg.title || 'PrivOS Demo MCP App',
-						description: pkg.description || 'HR management dashboard',
-						inputSchema: {
-							type: 'object',
-							properties: { roomId: { type: 'string' } },
-						},
-						_meta: {
-							// The CSP block declares the external origins this app's UI would like to
-							// embed. It grants nothing: a workspace admin approves what may actually
-							// load, and the Hub enforces that approval on the served document.
-							ui: { resourceUri: UI_RESOURCE_URI, csp: UI_DECLARED_CSP },
-						},
-					},
-					{
-						name: WHOAMI_TOOL,
-						title: 'Who am I (verified)',
-						description:
-							"Return the actor authenticated by the Hub's body-bound private dispatch assertion.",
-						inputSchema: {
-							type: 'object',
-							properties: {},
-						},
-					},
-					{
-						name: BULK_EXPORT_TOOL,
-						title: 'Bulk export HR records',
-						description: 'Export records in bulk. Requires the Pro tier.',
-						inputSchema: {
-							type: 'object',
-							properties: { records: { type: 'array', items: { type: 'object' } } },
-							required: ['records'],
-						},
-					},
-					{
-						name: CREDENTIAL_CHECK_TOOL,
-						title: 'Validate agent bot credential',
-						description: "Confirm this app's configured agent bot credential authenticates against the Hub.",
-						inputSchema: {
-							type: 'object',
-							properties: {},
-						},
-					},
-					...APP_PLATFORM_TOOL_DEFINITIONS,
-				],
-			};
+			// The reviewed manifest is the one source of tool definitions: the Hub's readiness
+			// check requires the served list to equal it byte for byte, so it is served verbatim.
+			return { tools: createManifest().tools };
 
 		case 'tools/call':
 			if (params?.name === BULK_EXPORT_TOOL) {

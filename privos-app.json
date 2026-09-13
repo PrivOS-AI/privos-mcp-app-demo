@@ -2,7 +2,7 @@
   "schemaVersion": 3,
   "kind": "mcp-app",
   "name": "ai.privos.mcp-app-demo",
-  "version": "2.17.7",
+  "version": "2.17.8",
   "title": "PrivOS Demo MCP App",
   "description": "Reference PrivOS MCP app demonstrating HR workflows, scoped workspace APIs, AI and sandbox controls, and license-aware features.",
   "icon": "/public/icon.svg",
@@ -291,6 +291,72 @@
       "inputSchema": {
         "type": "object",
         "properties": {}
+      }
+    },
+    {
+      "name": "hr_app_object_store",
+      "title": "App Objects (CAS) demo",
+      "description": "Store/read one immutable, room-private, content-addressed object via mcpapp.objects.put/head/get, authenticated with this app's own installation-bot credential. Live only once this room's Hub is on tenant.132+.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "action": {
+            "type": "string",
+            "enum": [
+              "put",
+              "head",
+              "get"
+            ]
+          },
+          "roomId": {
+            "type": "string"
+          },
+          "dataBase64": {
+            "type": "string"
+          },
+          "mediaType": {
+            "type": "string"
+          },
+          "digest": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "action",
+          "roomId"
+        ]
+      }
+    },
+    {
+      "name": "hr_app_db_store",
+      "title": "App Database demo",
+      "description": "Register a demo collection, create/query records, and read its schema via mcpapp.db.registerCollection / create / query / getSchema, authenticated with this app's own installation-bot credential. Live only once this room's Hub is on tenant.132+.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "action": {
+            "type": "string",
+            "enum": [
+              "registerCollection",
+              "create",
+              "query",
+              "getSchema"
+            ]
+          },
+          "roomId": {
+            "type": "string"
+          },
+          "label": {
+            "type": "string"
+          },
+          "note": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "action",
+          "roomId"
+        ]
       }
     }
   ],
