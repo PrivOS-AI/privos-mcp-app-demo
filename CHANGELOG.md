@@ -4,6 +4,16 @@ This project follows [Semantic Versioning](https://semver.org/). Each marketplac
 must equal `privos-app.json.version` and `package.json.version`; change both release notes and metadata
 in one commit.
 
+## [2.17.9] - 2026-09-13
+
+### Fixed
+
+- **Readiness conformance, corrected.** The Hub compares the manifest's tools against the served
+  list after lifting each tool's `_meta.ui` to `ui`, so a manifest `ui` must be served as
+  `_meta.ui` (2.17.8 served it at top level, which the Hub ignores). `tools/list` now serves each
+  manifest entry with its `ui` under `_meta`; a test applies the Hub's mapping and checks
+  canonical equality with the manifest. No permission or scope change.
+
 ## [2.17.8] - 2026-09-13
 
 ### Fixed

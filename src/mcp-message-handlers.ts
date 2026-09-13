@@ -146,8 +146,9 @@ export async function handleMcpMessage(
 
 		case 'tools/list':
 			// The reviewed manifest is the one source of tool definitions: the Hub's readiness
-			// check requires the served list to equal it byte for byte, so it is served verbatim.
-			return { tools: createManifest().tools };
+			// check compares its tools against the served list after lifting `_meta.ui` to
+			// `ui`, so each manifest entry is served with its `ui` under `_meta` and nothing else.
+			return { tools: createManifest().tools.map(({ ui, ...tool }) => (ui ? { ...tool, _meta: { ui } } : tool)) };
 
 		case 'tools/call':
 			if (params?.name === BULK_EXPORT_TOOL) {
