@@ -4,6 +4,13 @@ This project follows [Semantic Versioning](https://semver.org/). Each marketplac
 must equal `privos-app.json.version` and `package.json.version`; change both release notes and metadata
 in one commit.
 
+## [2.17.12] - 2026-09-14
+
+### Changed
+
+- No functional change. The self-hosted drill host picked up 2.17.11 at install time, so a
+  further version is needed as the in-place upgrade and rollback target.
+
 ## [2.17.11] - 2026-09-14
 
 ### Changed
