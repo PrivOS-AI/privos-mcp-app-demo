@@ -4,6 +4,14 @@ This project follows [Semantic Versioning](https://semver.org/). Each marketplac
 must equal `privos-app.json.version` and `package.json.version`; change both release notes and metadata
 in one commit.
 
+## [2.17.10] - 2026-09-13
+
+### Changed
+
+- **Upgrade `@privos_ai/app-server` to `^0.11.1`.** In local execution the SDK now verifies the
+  Hub's user token against the Hub JWKS at the attested origin, so `hr_whoami` reports the caller
+  as verified. No manifest, scope, or permission change.
+
 ## [2.17.9] - 2026-09-13
 
 ### Fixed
