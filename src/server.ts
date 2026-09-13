@@ -1,10 +1,11 @@
 /**
- * Entry point. `serveApp` resolves exactly one of `managed` /
- * `standalone-production` / `development` (precedence managed >
- * standalone-production > development; a fatal `RuntimeModeError` when both a
- * managed workload socket and a paired standalone identity file are present, or
- * when `NODE_ENV=production` has neither) and wires the correct transport +
- * trust bootstrap + agent-bot hub internally.
+ * Entry point. `serveApp` resolves exactly one of `managed` / `runtime-v3` /
+ * `standalone-production` / `development` (a valid driver `runtime-v3` env
+ * wins; otherwise precedence managed > standalone-production > development; a
+ * fatal `RuntimeModeError` when both a managed workload socket and a paired
+ * standalone identity file are present, or when `NODE_ENV=production` has none
+ * of them) and wires the correct transport + trust bootstrap + agent-bot hub
+ * internally.
  *
  * The ONE piece that stays app-local (by design) is the interactive
  * `development` Relay loop: `PRIVOS_TRANSPORT=relay` (`npm run dev`) steps

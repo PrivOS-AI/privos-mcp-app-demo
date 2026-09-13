@@ -4,6 +4,16 @@ This project follows [Semantic Versioning](https://semver.org/). Each marketplac
 must equal `privos-app.json.version` and `package.json.version`; change both release notes and metadata
 in one commit.
 
+## [2.17.7] - 2026-09-13
+
+### Changed
+
+- **Republish on `@privos_ai/app-server` 0.11.0** for the SDK's new `runtime-v3` mode: a
+  `SELF_HOSTED_LOCAL` container now answers the Hub's signed dispatch and the unsigned
+  pre-activation readiness triple through `serveApp` itself, the same way `managed` already does.
+  The manifest-only surface for `PRODUCTION_WITHOUT_IDENTITY` stays: the marketplace build node
+  still runs the image bare and requires the manifest. No manifest, scope, or permission change.
+
 ## [2.17.6] - 2026-09-13
 
 ### Changed
