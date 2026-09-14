@@ -4,6 +4,13 @@ This project follows [Semantic Versioning](https://semver.org/). Each marketplac
 must equal `privos-app.json.version` and `package.json.version`; change both release notes and metadata
 in one commit.
 
+## [2.17.14] - 2026-09-14
+
+### Changed
+
+- No functional change. Upgrade target for proving that a self-hosted upgrade and uninstall leave
+  no staged artifacts behind.
+
 ## [2.17.13] - 2026-09-14
 
 ### Changed
