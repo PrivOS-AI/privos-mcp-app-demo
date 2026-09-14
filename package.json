@@ -42,6 +42,7 @@
     "test": "vitest run",
     "verify:fast-pr": "npm run typecheck:strict-unused && npm run test && npm run build && npm run preflight",
     "manifest:lint": "privos-app lint privos-app.json",
+    "bundle:ui": "privos-app bundle-ui --dist dist/ui --out ui-bundle.tar",
     "preflight": "tsx scripts/preflight.ts",
     "package": "bash scripts/package-source.sh",
     "publish:marketplace": "privos-app publish",
