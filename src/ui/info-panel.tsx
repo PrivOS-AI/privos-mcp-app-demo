@@ -26,7 +26,7 @@ export default function InfoPanel() {
 
   return (
     <div style={{ padding: 20, maxWidth: 680 }}>
-      <h2 style={{ marginTop: 0 }}>App &amp; room info</h2>
+      <h2 style={{ marginTop: 0 }}>App and room info</h2>
       <p style={{ opacity: 0.75, marginTop: -6 }}>
         Basic identifiers exposed by the host under the <code>basic:information</code> scope.
       </p>

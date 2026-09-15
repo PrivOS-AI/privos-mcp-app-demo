@@ -4,6 +4,13 @@ This project follows [Semantic Versioning](https://semver.org/). Each marketplac
 must equal `privos-app.json.version` and `package.json.version`; change both release notes and metadata
 in one commit.
 
+## [2.17.17] - 2026-09-15
+
+### Changed
+
+- The info panel heading reads "App and room info". A visible UI change, so this version ships a UI
+  bundle whose digest differs from 2.17.15/2.17.16 and an upgrade must ingest it before the swap.
+
 ## [2.17.16] - 2026-09-15
 
 ### Changed
