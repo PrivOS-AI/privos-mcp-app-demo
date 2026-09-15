@@ -4,6 +4,13 @@ This project follows [Semantic Versioning](https://semver.org/). Each marketplac
 must equal `privos-app.json.version` and `package.json.version`; change both release notes and metadata
 in one commit.
 
+## [2.17.15] - 2026-09-15
+
+### Changed
+
+- The manifest declares `ui.distDir: "dist/ui"`, so the published version carries a signed UI bundle
+  built from the Vite output and the Hub serves the app UI from tenant storage.
+
 ## [2.17.14] - 2026-09-14
 
 ### Changed
