@@ -107,6 +107,20 @@ Then the real gates:
 npm run typecheck && npm test && npm run docker:build
 ```
 
+### Check the UI bundle too
+
+```bash
+npm run build
+npx privos-app bundle-ui --check
+```
+
+`--check` runs the same build-and-budget validation the build node's `ui-build`
+stage runs against `ui.distDir` (`dist/ui` for this app), without writing a
+tar — it catches a wrong `ui.distDir`, an oversized/unhashed asset, or a
+budget overrun (≤ 2 MB/file, ≤ 256 files, ≤ 64 MB total) before you spend a
+real submission on it. See privos-dev-docs:
+[mcp-app-platform/ui-bundle.md](https://github.com/PrivOS-AI/privos-dev-docs/blob/main/mcp-app-platform/ui-bundle.md).
+
 ---
 
 ## 3. Package the source archive
@@ -283,3 +297,11 @@ app does; `externalDestinations`, `dataCategories`, `dataResidency`,
 Install the published version into a throwaway tenant room and exercise the
 paths the release changed. A published listing is what workspaces install; a
 broken one is not fixed by a rebuild of the same version, only by a new one.
+
+The signed UI bundle is content-addressed: a version whose UI build output is
+byte-identical to the previous one reuses the already-stored bundle rather
+than shipping a new one. **Shipping a UI-only change needs a UI source
+change** — bumping only `privos-app.json`/`package.json`'s version, or
+changing only the backend, does not by itself push new UI to installed
+workspaces. See privos-dev-docs:
+[mcp-app-platform/ui-bundle.md](https://github.com/PrivOS-AI/privos-dev-docs/blob/main/mcp-app-platform/ui-bundle.md).

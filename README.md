@@ -462,6 +462,19 @@ with a non-relative asset reference).
 to fetch the split-out asset files, and the shell's boot watchdog shows a "App assets unavailable
 — Retry" panel instead of a blank frame until the tenant is upgraded.
 
+### Signed bundle at publish time
+
+`ui.distDir` in `privos-app.json` is set to `"dist/ui"` — it must match wherever `npm run build`
+actually writes the UI, since this is what `privos-app bundle-ui` (`npm run bundle:ui`) packages
+into the tar the marketplace build node produces and the Portal signs. At install and upgrade, a
+capable Hub pulls that signed bundle, verifies its digest, and preloads the UI into the workspace's
+own storage before the app is allowed to go active — this is on top of, not instead of, the
+`resources/read` contract `serveBuiltUi` implements above. A version whose UI build output didn't
+change reuses the already-stored bundle rather than re-shipping it, so a manifest- or backend-only
+version bump does not by itself ship a UI change. See privos-dev-docs:
+[mcp-app-platform/ui-bundle.md](https://github.com/PrivOS-AI/privos-dev-docs/blob/main/mcp-app-platform/ui-bundle.md)
+for the full mechanism and its refusal codes.
+
 ## Verification
 
 ```bash
