@@ -4,6 +4,13 @@ This project follows [Semantic Versioning](https://semver.org/). Each marketplac
 must equal `privos-app.json.version` and `package.json.version`; change both release notes and metadata
 in one commit.
 
+## [2.17.16] - 2026-09-15
+
+### Changed
+
+- No functional change. Upgrade target for proving that the Hub ingests and verifies the signed UI
+  bundle before switching the served UI, and refuses the swap when the bundle bytes do not match.
+
 ## [2.17.15] - 2026-09-15
 
 ### Changed
