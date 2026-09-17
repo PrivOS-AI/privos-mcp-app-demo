@@ -227,6 +227,10 @@
     "externalProcessing": false
   },
   "availabilityTier": "single",
+  "runtime": {
+    "minimumSize": "S",
+    "recommendedSize": "S"
+  },
   "capabilities": {
     "verifiedActor": true
   },
@@ -362,8 +366,8 @@
   ],
   "port": 3000,
   "resources": {
-    "memoryMb": 256,
-    "cpus": 0.25,
+    "memoryMb": 512,
+    "cpus": 0.5,
     "tmpSizeMb": 64
   },
   "volumes": [],
