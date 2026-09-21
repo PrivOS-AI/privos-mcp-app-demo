@@ -57,7 +57,7 @@ export default function AppOwnedChatPanel() {
             zIndex: 50,
             display: 'flex',
             flexDirection: 'column',
-            background: 'var(--app-surface, #fff)',
+            background: 'var(--bg-card, #fff)',
             borderLeft: '1px solid var(--app-border, rgba(0,0,0,0.12))',
             boxShadow: '-8px 0 24px rgba(0,0,0,0.12)',
           }}

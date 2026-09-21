@@ -35,23 +35,29 @@ export default function WhoamiPanel() {
         <strong> backend</strong>, not claimed by the frontend.
       </p>
 
-      {loading && <div style={box('#334', '#eef')}>Verifying with backend&hellip;</div>}
+      {loading && (
+        <div style={box('var(--text)', 'var(--bg-hover)')}>Verifying with backend&hellip;</div>
+      )}
 
-      {error && <div style={box('#8a1f1f', '#fdecec')}>Tool call failed: {error.message}</div>}
+      {error && (
+        <div style={box('var(--error-text)', 'var(--error-bg)')}>
+          Tool call failed: {error.message}
+        </div>
+      )}
 
       {data && data.verified && (
-        <div style={box('#12633a', '#e7f7ee')}>
+        <div style={box('var(--success-text)', 'var(--success-bg)')}>
           <div style={{ fontSize: 22, fontWeight: 700 }}>{data.username}</div>
           <div style={{ fontFamily: 'monospace', fontSize: 13, opacity: 0.8 }}>userId: {data.userId}</div>
           <div style={{ marginTop: 8, fontSize: 13 }}>
-            <span style={badge('#12633a')}>verified by backend</span>
+            <span style={badge('var(--success-text)', 'var(--success-bg)')}>verified by backend</span>
             {data.roomId ? <span style={{ marginLeft: 10, opacity: 0.7 }}>room: {data.roomId}</span> : null}
           </div>
         </div>
       )}
 
       {data && !data.verified && (
-        <div style={box('#8a1f1f', '#fdecec')}>
+        <div style={box('var(--error-text)', 'var(--error-bg)')}>
           <strong>Not verified.</strong> {data.error}
         </div>
       )}
@@ -75,10 +81,12 @@ export default function WhoamiPanel() {
   );
 }
 
+// `fg`/`bg` are `var(--token)` strings from contact-form-styles.css, never raw hex — this
+// panel must inherit the workspace theme like every other surface in the app.
 function box(fg: string, bg: string): React.CSSProperties {
-  return { border: `1px solid ${fg}33`, background: bg, color: fg, borderRadius: 8, padding: '12px 14px', marginTop: 12 };
+  return { border: `1px solid ${fg}`, background: bg, color: fg, borderRadius: 8, padding: '12px 14px', marginTop: 12 };
 }
 
-function badge(fg: string): React.CSSProperties {
-  return { background: `${fg}22`, color: fg, borderRadius: 999, padding: '2px 10px', fontSize: 12, fontWeight: 600 };
+function badge(fg: string, bg: string): React.CSSProperties {
+  return { background: bg, color: fg, borderRadius: 999, padding: '2px 10px', fontSize: 12, fontWeight: 600 };
 }

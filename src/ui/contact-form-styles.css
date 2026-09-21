@@ -19,18 +19,24 @@
   --bg: var(--base-bg-main, #F7F8FA);
   --bg-card: var(--base-bg-surface, #FFFFFF);
   --bg-hover: var(--base-bg-menu, #F2F3F5);
-  --bg-input: #FFFFFF;
+  --bg-input: var(--base-bg-surface, #FFFFFF);
   --bg-table-head: var(--base-bg-header, #F7F8FA);
+  /* No curated base token fits an "editing row" highlight or a modal overlay tint —
+     literal by design, not an oversight. */
   --bg-editing: #FFFEF0;
-  --bg-field-panel: #F7F8FA;
+  --bg-field-panel: var(--base-bg-main, #F7F8FA);
   --text: var(--base-text-primary, #1F2329);
   --text-secondary: var(--base-text-secondary, #2F343D);
-  --text-muted: #6C737A;
+  --text-muted: var(--base-text-secondary, #6C737A);
+  /* --text-faint has no curated base token to map to (more muted than
+     --base-text-secondary) — literal by design. */
   --text-faint: #9EA2A8;
   --border: var(--base-border, #E4E7EA);
-  --border-light: #EBECEF;
+  --border-light: var(--base-border, #EBECEF);
   --accent: var(--base-primary, #156FF5);
   --accent-hover: var(--base-primary-hover, #095AD2);
+  /* Status colours (success/error/danger) and the modal overlay tint have no
+     equivalent in the curated 12-token set — literal by design. */
   --success-bg: #C1EBDD;
   --success-text: #148660;
   --error-bg: #FFE9EC;
@@ -45,18 +51,24 @@
   --bg: var(--base-bg-main, #080d0f);
   --bg-card: var(--base-bg-surface, #131a1e);
   --bg-hover: var(--base-bg-menu, #1a2228);
-  --bg-input: #1a2228;
+  --bg-input: var(--base-bg-surface, #1a2228);
   --bg-table-head: var(--base-bg-header, #131a1e);
+  /* No curated base token fits an "editing row" highlight or a modal overlay tint —
+     literal by design, not an oversight. */
   --bg-editing: #131a1e;
-  --bg-field-panel: #080d0f;
+  --bg-field-panel: var(--base-bg-main, #080d0f);
   --text: var(--base-text-primary, #E4E7EA);
   --text-secondary: var(--base-text-secondary, #9EA2A8);
-  --text-muted: #9EA2A8;
+  --text-muted: var(--base-text-secondary, #9EA2A8);
+  /* --text-faint has no curated base token to map to (more muted than
+     --base-text-secondary) — literal by design. */
   --text-faint: #6C737A;
   --border: var(--base-border, #353B45);
-  --border-light: #2F343D;
+  --border-light: var(--base-border, #2F343D);
   --accent: var(--base-primary, #095AD2);
   --accent-hover: var(--base-primary-hover, #10529E);
+  /* Status colours (success/error/danger) and the modal overlay tint have no
+     equivalent in the curated 12-token set — literal by design. */
   --success-bg: #1A3A2A;
   --success-text: #58AD90;
   --error-bg: #3A1A1A;
