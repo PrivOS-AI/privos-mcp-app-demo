@@ -4,6 +4,14 @@ This project follows [Semantic Versioning](https://semver.org/). Each marketplac
 must equal `privos-app.json.version` and `package.json.version`; change both release notes and metadata
 in one commit.
 
+## [2.17.19] - 2026-10-24
+
+### Security
+
+- Runtime image now builds from `node:22.23.4-alpine3.23` pinned by digest (both stages) and the build fails on a
+  Node below the CVE-2026-111497 (Brotli decoder) minimum. `engines.node` is `>=22.23.4 <23`. No application
+  behaviour changes.
+
 ## [2.17.18] - 2026-10-13
 
 ### Security
