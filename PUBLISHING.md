@@ -88,6 +88,36 @@ the app's UI shows the shell's "App assets unavailable — Retry" panel instead 
 that tenant's Hub is upgraded. Release order matters here the same way it does for a permission gap:
 get the fleet's Hub to tenant.N first, then promote this app version.
 
+### Managed runtime size
+
+A managed install (App Cluster) bills a flat monthly price per runtime size,
+not per resource usage. `privos-app.json` declares which sizes apply:
+
+```json
+"runtime": { "minimumSize": "S", "recommendedSize": "S" }
+```
+
+| Size | Memory | CPU | Buyer price |
+|---|---|---|---|
+| XS | 256 MB | 0.25 | $3/mo |
+| S | 512 MB | 0.5 | $5/mo |
+| M | 1024 MB | 1 | $10/mo |
+| L | 2048 MB | 2 | $20/mo |
+| XL (v3-only) | 4096 MB | 4 | $40/mo |
+
+When `runtime` is present, `resources` **must equal the `recommendedSize`
+row's `memoryMb`/`cpus` exactly** — the Portal rejects a manifest whose
+`resources` disagrees with the size it recommends. `tmpSizeMb` is not part of
+the size table and is unconstrained by it.
+
+Set `minimumSize` honestly, not defensively: it is the floor the app is
+tested against, and a buyer who installs at or above `recommendedSize` and
+still hits an OOM is this app's support burden. A buyer who deliberately picks
+a size between `minimumSize` and `recommendedSize` (once the size picker
+ships) is accepting that trade-off themselves — do not set `minimumSize`
+equal to `recommendedSize` just to avoid ever hearing about it unless the app
+genuinely cannot run smaller.
+
 ---
 
 ## 2. Run the local mirror of the Portal's rules
