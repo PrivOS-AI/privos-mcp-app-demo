@@ -27,15 +27,20 @@ jobs:
             -e PORT=3000 -p 127.0.0.1:3000:3000 privos-mcp-app-demo:test
           trap 'docker rm -f reference-app' EXIT
           for attempt in $(seq 1 30); do
-            curl --fail http://127.0.0.1:3000/.well-known/mcp/manifest.json && break
+            curl -sf -o /dev/null http://127.0.0.1:3000/.well-known/mcp/manifest.json && break
             sleep 1
           done
+          curl -sf -o /dev/null http://127.0.0.1:3000/.well-known/mcp/manifest.json
           docker exec reference-app sh -c '! command -v npm && ! command -v npx'
-          # An unauthenticated /mcp call must be REFUSED: every request needs a Hub-signed
-          # private dispatch assertion. This step used to assert a 200, the contract from
-          # before that guard existed, and had been failing ever since.
-          status=$(curl -s -o /tmp/mcp.json -w '%{http_code}' \
+          # This container runs bare: NODE_ENV=production with no workload identity socket and no
+          # paired identity file. The app must then serve only the manifest (so the marketplace
+          # build node can still discover it), report alive-but-degraded on /health, hold /ready
+          # at 503, and expose no MCP surface at all, so nothing can be dispatched (fail-closed).
+          # The 403 DISPATCH_ASSERTION_INVALID refusal only exists once an identity is loaded.
+          curl -sf http://127.0.0.1:3000/health | grep -q '"degraded":true'
+          test "$(curl -s -o /tmp/ready.json -w '%{http_code}' http://127.0.0.1:3000/ready)" = "503"
+          grep -q '"reason":"PRODUCTION_WITHOUT_IDENTITY"' /tmp/ready.json
+          status=$(curl -s -o /dev/null -w '%{http_code}' \
             --json '{"jsonrpc":"2.0","id":1,"method":"tools/list","params":{}}' \
             http://127.0.0.1:3000/mcp)
-          test "$status" = "403"
-          grep -q DISPATCH_ASSERTION_INVALID /tmp/mcp.json
+          test "$status" = "404"
