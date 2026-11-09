@@ -409,7 +409,7 @@ workspace theme inheritance — no permission involved. The Hub pushes the curre
 plus a curated set of 12 `--base-*` design tokens (primary colour, backgrounds, border, text,
 link colour, corner radius, font family) over the same non-secret `HOST_CONTEXT_CHANGED` bridge
 push that carries `theme`/`roomId`, re-sent on every mode flip and on a live admin theme save.
-`@privos_ai/app-react`'s `PrivosAppProvider` (`^0.6.0`) applies every token onto this document's
+`@privos_ai/app-react`'s `PrivosAppProvider` (`^0.9.0`) applies every token onto this document's
 `<html>` as a real CSS custom property automatically, before any app code runs.
 
 The tab renders:
@@ -425,6 +425,27 @@ Whole-app theme sync (the `data-theme` attribute + this file's own `--bg`/`--tex
 indirection) is a separate, older mechanism — see `theme-provider.tsx` and
 `contact-form-styles.css`. This tab exists to make the newer, richer `--base-*` token contract
 demonstrably visible on its own.
+
+## Language and locale
+
+The **Language & locale** tab (`src/ui/locale-panel.tsx`) shows the app following the user's Hub
+language. No permission is involved. The Hub sends `locale`, a canonical BCP 47 tag such as
+`vi-VN` (the user's own language, else the workspace default), on the same non-secret
+`HOST_CONTEXT_CHANGED` push that carries `theme`, announced by `hostCapabilities.locale`. It is
+re-sent when the user switches language. `@privos_ai/app-react` (`^0.9.0`) exposes it as
+`usePrivosContext().locale`.
+
+The tab renders:
+- the `locale` the Hub sent, and the locale actually used, which falls back to the browser language
+  when the Hub sends none (older Hub, or the app running standalone), with a note in that case;
+- a greeting and hint in English or Vietnamese, picked by language subtag
+  (`pickDemoLanguage` in `src/ui/locale-demo-helpers.ts`), on a container tagged with that `lang`.
+  Only this panel is translated, so `<html lang>` stays English;
+- a date, a number, a EUR amount and a relative time formatted with the full tag through `Intl`.
+
+Switch your Hub language while the tab is open and everything updates with no reload. The contract
+is documented in the dev docs'
+[Locale Inheritance](https://github.com/PrivOS-AI/privos-dev-docs/blob/main/mcp-app-platform/locale-inheritance.md).
 
 ## License behavior
 

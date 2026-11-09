@@ -1161,6 +1161,26 @@ textarea:focus {
   white-space: nowrap;
 }
 
+.locale-demo-row {
+  grid-template-columns: 1fr max-content 1fr;
+}
+
+.locale-demo-row .theme-demo-token-value {
+  white-space: normal;
+}
+
+.locale-demo-greeting {
+  margin: 12px 0 20px;
+  padding: 12px 14px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-base);
+}
+
+.locale-demo-greeting p {
+  margin: 6px 0 0;
+  color: var(--text-secondary);
+}
+
 .theme-demo-swatch {
   display: inline-block;
   width: 22px;

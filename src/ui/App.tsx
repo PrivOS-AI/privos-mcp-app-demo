@@ -20,6 +20,7 @@ import AppDbPanel from './app-db-panel';
 import NotificationPanel from './notification-panel';
 import { LazyBoundary } from './lazy-boundary';
 import ThemeInheritancePanel from './theme-inheritance-panel';
+import LocalePanel from './locale-panel';
 
 // Heavy panels split into their own chunks — loaded only when their tab is
 // opened, so a cold app open never pays for AI chat/history rendering,
@@ -61,7 +62,8 @@ type Tab =
   | 'appDb'
   | 'storage'
   | 'notification'
-  | 'themeInheritance';
+  | 'themeInheritance'
+  | 'locale';
 
 const TABS: { id: Tab; label: string; scope?: string; degradedBehavior?: string }[] = [
   { id: 'identity', label: 'Identity' },
@@ -95,6 +97,8 @@ const TABS: { id: Tab; label: string; scope?: string; degradedBehavior?: string 
   { id: 'notification', label: 'Notification', scope: 'notifications:write', degradedBehavior: 'This app cannot send notifications to room members.' },
   // No scope: theme tokens ride the same non-secret HOST_CONTEXT_CHANGED push as `theme`/roomId.
   { id: 'themeInheritance', label: 'Theme inheritance' },
+  // No scope: the Hub UI language rides the same push as `theme`.
+  { id: 'locale', label: 'Language & locale' },
 ];
 
 function FeatureUnavailable({ text }: { text: string }) {
@@ -173,6 +177,7 @@ function ThemedApp() {
           {tab === 'storage' && <LazyPanel><StoragePanel /></LazyPanel>}
           {tab === 'notification' && <NotificationPanel />}
           {tab === 'themeInheritance' && <ThemeInheritancePanel />}
+          {tab === 'locale' && <LocalePanel />}
         </>
       )}
 
