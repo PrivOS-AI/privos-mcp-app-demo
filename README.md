@@ -409,7 +409,7 @@ workspace theme inheritance — no permission involved. The Hub pushes the curre
 plus a curated set of 12 `--base-*` design tokens (primary colour, backgrounds, border, text,
 link colour, corner radius, font family) over the same non-secret `HOST_CONTEXT_CHANGED` bridge
 push that carries `theme`/`roomId`, re-sent on every mode flip and on a live admin theme save.
-`@privos_ai/app-react`'s `PrivosAppProvider` (`^0.6.0`) applies every token onto this document's
+`@privos_ai/app-react`'s `PrivosAppProvider` (`^0.9.0`) applies every token onto this document's
 `<html>` as a real CSS custom property automatically, before any app code runs.
 
 The tab renders:
